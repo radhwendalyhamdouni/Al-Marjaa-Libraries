@@ -3,7 +3,50 @@ name = "almarjaa-industrial"
 version = "3.4.0"
 edition = "2021"
 authors = ["رضوان دالي حمدوني <almarjaa.project@hotmail.com>"]
-description = "مكتبة industrial للغة المرجع"
+description = "مكتبة الأنظمة الصناعية للغة المرجع - SCADA, HMI, Modbus, MQTT"
+license = "All Rights Reserved"
+repository = "https://github.com/radhwendalyhamdouni/Al-Marjaa-Libraries"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# التسلسل
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# التاريخ والوقت
+chrono = { version = "0.4", features = ["serde"] }
+
+# Modbus TCP/RTU
+tokio-modbus = { version = "0.13", optional = true }
+
+# Serial Port للـ Modbus RTU
+serialport = { version = "4.5", optional = true }
+
+# MQTT
+rumqttc = { version = "0.24", optional = true }
+
+# قاعدة بيانات SCADA
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite"], optional = true }
+
+# Async runtime
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros", "net", "sync", "time", "io-util"], optional = true }
+
+# التسجيل
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
+
+# Async channels
+async-channel = { version = "2.3", optional = true }
+
+# HMI رسومية (اختياري)
+iced = { version = "0.13", features = ["tokio"], optional = true }
+
+[features]
+default = []
+full = ["modbus", "mqtt", "scada", "tokio"]
+modbus = ["tokio-modbus", "serialport", "tokio"]
+mqtt = ["rumqttc", "tokio", "tracing-subscriber", "async-channel"]
+scada = ["sqlx", "tokio"]
+hmi = ["iced", "tokio"]

@@ -3,7 +3,27 @@ name = "almarjaa-gpu"
 version = "3.4.0"
 edition = "2021"
 authors = ["رضوان دالي حمدوني <almarjaa.project@hotmail.com>"]
-description = "مكتبة gpu للغة المرجع"
+description = "مكتبة GPU للغة المرجع - تسريع العمليات الحسابية مع CUDA, Metal, Vulkan"
+license = "All Rights Reserved"
+repository = "https://github.com/radhwendalyhamdouni/Al-Marjaa-Libraries"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# GPU والحوسبة المتوازية
+wgpu = { version = "0.19", features = ["webgl"], optional = true }
+pollster = { version = "0.3", optional = true }
+bytemuck = { version = "1.14", features = ["derive"], optional = true }
+
+# الحوسبة المتوازية على CPU
+rayon = "1.10"
+num_cpus = "1.16"
+
+# أدوات إضافية
+serde = { version = "1.0", features = ["derive"], optional = true }
+
+[features]
+default = []
+full = ["wgpu", "pollster", "bytemuck", "serde"]
+vulkan = ["wgpu", "pollster", "bytemuck"]

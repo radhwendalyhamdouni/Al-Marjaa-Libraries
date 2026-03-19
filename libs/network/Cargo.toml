@@ -3,7 +3,38 @@ name = "almarjaa-network"
 version = "3.4.0"
 edition = "2021"
 authors = ["رضوان دالي حمدوني <almarjaa.project@hotmail.com>"]
-description = "مكتبة network للغة المرجع"
+description = "مكتبة الشبكات للغة المرجع - HTTP Client/Server, WebSocket, Sessions"
+license = "All Rights Reserved"
+repository = "https://github.com/radhwendalyhamdouni/Al-Marjaa-Libraries"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# التسلسل
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# HTTP Client
+reqwest = { version = "0.11", features = ["blocking", "json"], optional = true }
+
+# HTTP Server (axum)
+axum = { version = "0.7", optional = true }
+tower = { version = "0.4", optional = true }
+tower-http = { version = "0.5", features = ["cors", "fs"], optional = true }
+hyper = { version = "1.0", features = ["server", "http1"], optional = true }
+hyper-util = { version = "0.1", features = ["tokio"], optional = true }
+http-body-util = { version = "0.1", optional = true }
+
+# Async runtime
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros", "net", "sync", "time", "io-util"], optional = true }
+
+# أدوات إضافية
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.0", features = ["v4"] }
+
+[features]
+default = []
+full = ["client", "server", "tokio"]
+client = ["reqwest", "tokio"]
+server = ["axum", "tower", "tower-http", "hyper", "hyper-util", "http-body-util", "tokio"]

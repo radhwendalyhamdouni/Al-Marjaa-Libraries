@@ -3,7 +3,35 @@ name = "almarjaa-ai"
 version = "3.4.0"
 edition = "2021"
 authors = ["رضوان دالي حمدوني <almarjaa.project@hotmail.com>"]
-description = "مكتبة ai للغة المرجع"
+description = "مكتبة الذكاء الاصطناعي للغة المرجع - محرك Vibe Coding وNLP العربي"
+license = "All Rights Reserved"
+repository = "https://github.com/radhwendalyhamdouni/Al-Marjaa-Libraries"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# التسلسل
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# الذكاء الاصطناعي
+hf-hub = { version = "0.3", features = ["tokio"], optional = true }
+
+# معالجة GGUF
+memmap2 = { version = "0.9", optional = true }
+byteorder = { version = "1.5", optional = true }
+
+# Async runtime
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros"], optional = true }
+
+# أدوات إضافية
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1.10"
+rayon = "1.10"
+
+[features]
+default = []
+full = ["hf-hub", "memmap2", "byteorder", "tokio"]
+gguf = ["memmap2", "byteorder"]
+huggingface = ["hf-hub", "tokio"]
