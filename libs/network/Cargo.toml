@@ -1,0 +1,9 @@
+[package]
+name = "almarjaa-network"
+version = "3.4.0"
+edition = "2021"
+authors = ["رضوان دالي حمدوني <almarjaa.project@hotmail.com>"]
+description = "مكتبة network للغة المرجع"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
