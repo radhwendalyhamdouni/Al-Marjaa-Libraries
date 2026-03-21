@@ -496,18 +496,11 @@ impl PipelineEngine {
     }
 
     /// تنفيذ الكود عبر Bytecode VM
+    /// ملاحظة: هذه الدالة تحتاج للتكامل مع النواة
     fn execute_code(&self, code: &str) -> String {
-        // محاولة التشغيل عبر Bytecode VM
-        match crate::bytecode::run_bytecode(code) {
-            Ok(value) => match value {
-                crate::interpreter::value::Value::Number(n) => format!("{}", n),
-                crate::interpreter::value::Value::String(s) => s,
-                crate::interpreter::value::Value::Boolean(b) => format!("{}", b),
-                crate::interpreter::value::Value::Null => "تم".to_string(),
-                _ => format!("{:?}", value),
-            },
-            Err(e) => format!("خطأ: {}", e),
-        }
+        // إرجاع الكود المُنتج (يحتاج تكامل مع النواة للتشغيل الفعلي)
+        // عند استخدام المكتبة مع النواة، يمكن استبدال هذا بالتنفيذ الفعلي
+        format!("// الكود المُنتج:\n{}", code)
     }
 
     /// تشغيل مثال وعرض المدخلات والمخرجات

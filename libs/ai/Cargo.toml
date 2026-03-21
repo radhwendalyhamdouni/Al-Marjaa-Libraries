@@ -29,9 +29,16 @@ tokio = { version = "1.0", features = ["rt-multi-thread", "macros"], optional = 
 chrono = { version = "0.4", features = ["serde"] }
 regex = "1.10"
 rayon = "1.10"
+dirs = "5.0"
+shellexpand = "3.1"
+hex = "0.4"
+
+# الشبكة (اختياري)
+reqwest = { version = "0.11", features = ["blocking"], optional = true }
 
 [features]
 default = []
-full = ["hf-hub", "memmap2", "byteorder", "tokio"]
+full = ["hf-hub", "memmap2", "byteorder", "tokio", "reqwest"]
 gguf = ["memmap2", "byteorder"]
 huggingface = ["hf-hub", "tokio"]
+network = ["reqwest"]
