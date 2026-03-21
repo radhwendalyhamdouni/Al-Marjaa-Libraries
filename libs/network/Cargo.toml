@@ -32,6 +32,7 @@ tokio = { version = "1.0", features = ["rt-multi-thread", "macros", "net", "sync
 # أدوات إضافية
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1.0", features = ["v4"] }
+rand = "0.8"
 
 [features]
 default = []
